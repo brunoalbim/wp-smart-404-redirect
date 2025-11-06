@@ -2,7 +2,7 @@
 
 Plugin WordPress que intercepta erros 404 e redireciona automaticamente para URLs corretas baseadas no slug do post.
 
-## 📋 Descrição
+## Descrição
 
 Este plugin foi desenvolvido para resolver problemas de erro 404 causados por mudanças na estrutura de URLs de posts no WordPress. Quando um usuário acessa uma URL antiga que resulta em erro 404, o plugin:
 
@@ -10,25 +10,25 @@ Este plugin foi desenvolvido para resolver problemas de erro 404 causados por mu
 2. Busca no banco de dados por um post com esse slug
 3. Redireciona automaticamente (301 - permanente) para a URL correta no novo formato
 
-## 🎯 Problema que Resolve
+## Problema que Resolve
 
 **Situação:** O site teve suas URLs padrão do WordPress atualizadas, causando vários erros 404.
 
 **URLs Antigas:**
 ```
-https://diariodoestadogo.com.br/workshop-marca-dia-nacional-de-doacao-de-orgaos-em-goias/
-https://diariodoestadogo.com.br/post-de-teste-01/
-https://diariodoestadogo.com.br/outro-post-teste/0001/
+https://SEUSITE.com/slug-do-post-teste/
+https://SEUSITE.com/post-de-teste-01/
+https://SEUSITE.com/outro-post-teste/0001/
 ```
 
 **URLs Novas (com ID):**
 ```
-https://diariodoestadogo.com.br/workshop-marca-dia-nacional-de-doacao-de-orgaos-em-goias-59429/
-https://diariodoestadogo.com.br/post-de-teste-01-12345/
-https://diariodoestadogo.com.br/outro-post-teste-67890/
+https://SEUSITE.com/slug-do-post-teste-59429/
+https://SEUSITE.com/post-de-teste-01-12345/
+https://SEUSITE.com/outro-post-teste-67890/
 ```
 
-## ⚙️ Como Funciona
+## Como Funciona
 
 1. **Interceptação 404:** O plugin monitora todas as requisições que resultam em erro 404
 2. **Extração do Slug:** Extrai o slug da URL (primeira parte após o domínio)
@@ -43,7 +43,7 @@ https://diariodoestadogo.com.br/outro-post-teste-67890/
 - **Prevenção de Loops:** Verifica se já está na URL correta antes de redirecionar
 - **Performance:** Retorna o primeiro post encontrado (ordenado por ID ascendente)
 
-## 📦 Instalação
+## Instalação
 
 ### Método 1: Upload Manual
 
@@ -64,7 +64,7 @@ https://diariodoestadogo.com.br/outro-post-teste-67890/
 6. Acesse o painel do WordPress e vá em **Plugins**
 7. Localize **WP Smart 404 Redirect** e clique em **Ativar**
 
-## 🚀 Uso
+## Uso
 
 O plugin funciona automaticamente após a ativação. Não há configurações adicionais necessárias.
 
@@ -73,46 +73,46 @@ O plugin funciona automaticamente após a ativação. Não há configurações a
 #### Exemplo 1: URL sem ID
 **URL Acessada (404):**
 ```
-https://diariodoestadogo.com.br/workshop-marca-dia-nacional-de-doacao-de-orgaos-em-goias/
+https://SEUSITE.com/slug-do-post-teste/
 ```
 
 **O Plugin:**
-- Extrai o slug: `workshop-marca-dia-nacional-de-doacao-de-orgaos-em-goias`
+- Extrai o slug: `slug-do-post-teste`
 - Busca no banco de dados
 - Encontra o post com ID `59429`
-- Redireciona (301) para: `https://diariodoestadogo.com.br/workshop-marca-dia-nacional-de-doacao-de-orgaos-em-goias-59429/`
+- Redireciona (301) para: `https://SEUSITE.com/slug-do-post-teste-59429/`
 
 #### Exemplo 2: URL com ID antigo/incorreto
 **URL Acessada (404):**
 ```
-https://diariodoestadogo.com.br/post-de-teste-01/
+https://SEUSITE.com/post-de-teste-01/
 ```
 
 **O Plugin:**
 - Extrai o slug: `post-de-teste-01`
 - Busca no banco de dados
 - Encontra o post com ID `12345`
-- Redireciona (301) para: `https://diariodoestadogo.com.br/post-de-teste-01-12345/`
+- Redireciona (301) para: `https://SEUSITE.com/post-de-teste-01-12345/`
 
 #### Exemplo 3: URL já com ID (mas página 404 por outro motivo)
 **URL Acessada (404):**
 ```
-https://diariodoestadogo.com.br/outro-post-teste/0001/
+https://SEUSITE.com/outro-post-teste/0001/
 ```
 
 **O Plugin:**
 - Extrai o slug: `outro-post-teste` (remove o ID `0001`)
 - Busca no banco de dados
 - Encontra o post com ID `67890`
-- Redireciona (301) para: `https://diariodoestadogo.com.br/outro-post-teste-67890/`
+- Redireciona (301) para: `https://SEUSITE.com/outro-post-teste-67890/`
 
-## ✅ Requisitos
+## Requisitos
 
 - **WordPress:** Versão 5.0 ou superior
 - **PHP:** Versão 7.0 ou superior
 - **Permissões:** Capacidade de escrever/modificar headers HTTP (para redirecionamento)
 
-## 🔒 Segurança
+## Segurança
 
 O plugin implementa as seguintes medidas de segurança:
 
@@ -123,7 +123,7 @@ O plugin implementa as seguintes medidas de segurança:
 - ✅ Exclusão de áreas administrativas e AJAX
 - ✅ Validação de objetos de post antes de redirecionar
 
-## ❓ FAQ (Perguntas Frequentes)
+## FAQ (Perguntas Frequentes)
 
 ### O plugin funciona com Custom Post Types (CPTs)?
 Não. Por design, o plugin aplica-se apenas a posts padrão do WordPress (`post_type = 'post'`). URLs de CPTs, páginas, produtos WooCommerce, etc., não serão processadas.
@@ -146,7 +146,7 @@ Sim, o plugin funciona em instalações multisite. Cada site da rede pode ativá
 ### Há impacto na performance do site?
 O impacto é mínimo. O plugin só executa suas verificações quando ocorre um erro 404, e a query no banco de dados é otimizada com `no_found_rows` e `posts_per_page = 1`.
 
-## 🛠️ Desenvolvimento
+## Desenvolvimento
 
 ### Estrutura do Código
 
@@ -161,16 +161,6 @@ O plugin é construído usando uma classe principal (`WP_Smart_404_Redirect`) co
 
 - `template_redirect` (prioridade 1) - Hook principal para interceptar requisições antes de carregar templates
 
-## 📝 Licença
+## Licença
 
 Este plugin é licenciado sob a GPL v2 ou superior.
-
-## 🤝 Suporte
-
-Para suporte ou reportar problemas, entre em contato com a equipe de desenvolvimento DGO.
-
----
-
-**Versão:** 1.0.0  
-**Autor:** DGO Team  
-**Compatível com:** WordPress 5.0+
