@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Smart 404 Redirect
  * Description: Plugin que intercepta erros 404 e redireciona automaticamente para URLs corretas baseadas no slug do post
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Bruno Albim
  * Author URI: https://bruno.art.br
  * License: GPL v2 or later
@@ -173,12 +173,18 @@ class WP_Smart_404_Redirect {
      */
     private function redirect_to_correct_url( $post ) {
         // Validate post object
-        if ( ! $post || ! isset( $post->ID ) || ! isset( $post->post_name ) ) {
+        if ( ! $post || ! isset( $post->ID ) ) {
             return;
         }
 
-        // Build the correct URL: {site_url}/{slug}-{ID}/
-        $correct_url = home_url( '/' . $post->post_name . '-' . $post->ID . '/' );
+        // Get the correct URL using WordPress permalink structure
+        // This automatically respects the permalink settings from Settings > Permalinks
+        $correct_url = get_permalink( $post->ID );
+
+        // If get_permalink returns false, bail
+        if ( ! $correct_url ) {
+            return;
+        }
 
         // Get current URL for comparison
         $current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
